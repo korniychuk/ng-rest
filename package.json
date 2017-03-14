@@ -1,7 +1,7 @@
 {
   "name": "ng-rest",
   "version": "1.0.0-beta1",
-  "description": "Angular REST requset library",
+  "description": "Powerful and flexible angular REST client. Fully abstraction layer.",
   "keywords": [
     "angular2",
     "rest",

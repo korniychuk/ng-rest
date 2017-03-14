@@ -1,5 +1,5 @@
 # ng-rest
-Powerful and flexible angular REST client
+Powerful and flexible angular REST client. Fully abstraction layer.
 
 ### Todo
 
