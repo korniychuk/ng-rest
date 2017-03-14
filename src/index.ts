@@ -22,3 +22,6 @@ export {
 export { RestRequestData } from './base-rest/rest-request-data';
 export { status } from './base-rest/status';
 export { ValidationErrors } from './base-rest/validation-errors';
+
+// Default REST
+export { DefaultRestService } from './default-rest.service';

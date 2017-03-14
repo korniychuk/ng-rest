@@ -1,5 +1,5 @@
 import { RequestMethod, Headers, URLSearchParams } from '@angular/http';
-import { DefaultObject } from 'app/helpers/typed-object';
+import { DefaultObject } from 'typed-object-interfaces';
 import { Pagination } from './pagination';
 import { RestRequestSearchParams } from './rest-request-search-params';
 

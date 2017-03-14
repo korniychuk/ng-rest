@@ -1,5 +1,5 @@
 import { RequestMethod, Headers, URLSearchParams } from '@angular/http';
-import { DefaultObject } from 'app/helpers/typed-object';
+import { DefaultObject } from 'typed-object-interfaces';
 
 export interface RequestData {
   // path: string;

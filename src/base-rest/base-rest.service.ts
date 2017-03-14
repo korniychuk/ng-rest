@@ -3,7 +3,7 @@ import { Response } from '@angular/http';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { Observable } from 'rxjs/Observable';
 
-import { AnyObject, StringObject } from 'app/helpers/typed-object';
+import { AnyObject, StringObject } from 'typed-object-interfaces';
 
 import { ResponseError } from '../request/response-error';
 import { RequestService } from '../request/request.service';

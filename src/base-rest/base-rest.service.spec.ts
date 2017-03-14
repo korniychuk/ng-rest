@@ -8,7 +8,7 @@ import { TestBed, async, inject } from '@angular/core/testing';
 
 import { Observable } from 'rxjs/Observable';
 
-import { AnyObject } from 'app/helpers/typed-object';
+import { AnyObject } from 'typed-object-interfaces';
 import { RequestService } from '../request/request.service';
 
 import { BaseRestService } from './base-rest.service';

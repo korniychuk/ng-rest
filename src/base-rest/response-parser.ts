@@ -1,6 +1,6 @@
 import { Response } from '@angular/http';
 
-import { AnyObject } from 'app/helpers/typed-object';
+import { AnyObject } from 'typed-object-interfaces';
 import { Collection } from './collection';
 import { Entity, EntityConstructor } from './entity';
 import { CollectionConstructor } from './collection';

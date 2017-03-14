@@ -1,7 +1,7 @@
 /**
  * Warning! Don't use this file. This is proposition for feature versions.
  */
-import { AnyObject } from 'app/helpers/typed-object';
+import { AnyObject } from 'typed-object-interfaces';
 
 /**
  * Example 2: custom field (making bit mask)

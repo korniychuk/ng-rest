@@ -1,4 +1,4 @@
-import { StringObject } from '../../helpers/typed-object';
+import { StringObject } from 'typed-object-interfaces';
 
 export class ValidationErrors implements StringObject {
   [name: string]: string;

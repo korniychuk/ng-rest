@@ -1,7 +1,7 @@
 import { RequestMethod } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import { AnyObject } from 'app/helpers/typed-object';
+import { AnyObject } from 'typed-object-interfaces';
 
 import { BaseRestService } from './base-rest/base-rest.service';
 import { Entity } from './base-rest/entity';
