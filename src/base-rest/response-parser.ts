@@ -13,7 +13,7 @@ import { Model } from './model';
 /**
  *
  */
-export class ResponseParser<M extends Model<M>, P extends Pagination> {
+export class ResponseParser<M extends Model<M>, P> {
   /** Constructor of collection. You can override it if you want to extend collection */
   protected collectionClass: CollectionConstructor<M, P> = Collection;
 
@@ -65,10 +65,10 @@ export class ResponseParser<M extends Model<M>, P extends Pagination> {
     return new ValidationErrors(map(firstErrors));
   } // end validation()
 
-  protected extractPagination(res: Response): P {
+  protected extractPagination(res: Response): Pagination {
     const body = this.extractData(res);
 
-    const pagination = <P> {
+    const pagination = <Pagination> {
       prevPage : +body.prevPage || null,
       nextPage : +body.nextPage || null,
       perPage  : +body.perPage  || null,
@@ -95,7 +95,7 @@ export class ResponseParser<M extends Model<M>, P extends Pagination> {
   } // end extractCollectionData()
 
   protected extractData(res: Response): AnyObject {
-    let body = res.json();
+    const body = res.json();
     if ( body instanceof Object === false // all responses body should be object
       || body instanceof Array            // no one response should contains an array in re root
 
@@ -110,7 +110,7 @@ export class ResponseParser<M extends Model<M>, P extends Pagination> {
 
 }
 
-export type ResponseParserConstructor<M extends Model<M>, P extends Pagination> = {
+export type ResponseParserConstructor<M extends Model<M>, P> = {
   new (rest: BaseRestService<M>): ResponseParser<M, P>
 };
 
