@@ -91,15 +91,16 @@ export class ResponseParser<M extends Model<M>, P extends Pagination> {
     const body = this.extractData(res);
     const data: any[] = body['data'];
 
-    // body[ this.pluralName ] = entities.map((entity) => this.makeModel(entity));
-
     return data;
   } // end extractCollectionData()
 
   protected extractData(res: Response): AnyObject {
     let body = res.json();
-    if ( body instanceof Object === false                     // all responses body should be object
-      || res.status === 204 && body instanceof Array === true // created object
+    if ( body instanceof Object === false // all responses body should be object
+      || body instanceof Array            // no one response should contains an array in re root
+
+      // For servers that returns collections in the root of requests
+      // || res.status === 204 && body instanceof Array === true // created object
     ) {
       throw new Error('Incorrect body');
     }
