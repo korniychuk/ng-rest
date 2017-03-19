@@ -1,5 +1,6 @@
 import { RestRequestData } from './rest-request-data';
 import { BaseRequestFormatter } from './base-request-formatter';
+import { Pagination } from 'base-rest/pagination';
 
 /**
  * This is common server-specific implementation of {@link BaseRequestFormatter}
@@ -22,6 +23,22 @@ export class RequestFormatter<T extends RestRequestData> extends BaseRequestForm
    * Set null for disable this functionality
    */
   protected fieldsQueryParam = 'fields';
+
+  /**
+   * In the most cases only `page` and `perPage` will used,
+   *   but `from` and `to` also can be implemented on a backend.
+   *
+   * Override this map if you has different pagination interface
+   *
+   * Keys is fields of the pagination object,
+   * Values is corresponding url parameter names
+   */
+  protected paginationUrlMap = <{[name in (keyof Pagination)]: string}> {
+    page:    'page',
+    perPage: 'perPage',
+    from:    'from',
+    to:      'to',
+  };
 
   public constructor(data: T, isCallPrepare: boolean = true) {
     super(data, false);
@@ -85,8 +102,6 @@ export class RequestFormatter<T extends RestRequestData> extends BaseRequestForm
 
   /**
    * Apply pagination parameters to the request.
-   * In the most cases only `page` and `perPage` will used,
-   *   but `from` and `to` also can be implemented on a backend
    */
   protected preparePagination(data: T): void {
     const p = data.pagination;
@@ -94,9 +109,12 @@ export class RequestFormatter<T extends RestRequestData> extends BaseRequestForm
       return;
     }
 
-    ['page', 'perPage', 'from', 'to'].forEach((param) => {
-      if (p[param] && !this.search.has(param)) {
-        this.search.set(param, p[param]);
+    Object.keys(this.paginationUrlMap).forEach((param) => {
+      const urlName = this.paginationUrlMap[ param ];
+      const value   = p[ param ];
+
+      if (value !== undefined && value !== null && !this.search.has(urlName)) {
+        this.search.set(urlName, value);
       }
     });
   } // end preparePagination()

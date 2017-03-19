@@ -30,7 +30,9 @@ export class ResponseParser<M extends Model<M>, P> {
       const data = this.extractCollectionData(res);
 
       const model = data.map((entity) => this.rest.makeModel(entity));
-      const pagination: P = this.extractPagination(res);
+      // 'any' used at here because we can not know in advance what the type will be returned by
+      // .extractPagination(). And generic type 'P' can not be specified at here
+      const pagination: any = this.extractPagination(res);
 
       return new this.collectionClass(model, pagination);
     };
@@ -65,6 +67,10 @@ export class ResponseParser<M extends Model<M>, P> {
     return new ValidationErrors(map(firstErrors));
   } // end validation()
 
+  /**
+   * This method create only default Pagination object type.
+   * If you want to use an other pagination, override it.
+   */
   protected extractPagination(res: Response): Pagination {
     const body = this.extractData(res);
 
