@@ -6,7 +6,10 @@ export { ResponseError } from './request/response-error';
 export { RequestService } from './request/request.service';
 
 // Base REST
-export { BaseRequestFormatter } from './base-rest/base-request-formatter';
+export {
+  BaseRequestFormatter,
+  RequestFormatterConstructor,
+} from './base-rest/base-request-formatter';
 export { BaseRestService } from './base-rest/base-rest.service';
 export { Collection, CollectionConstructor } from './base-rest/collection';
 export { Entity, EntityConstructor } from './base-rest/entity';
