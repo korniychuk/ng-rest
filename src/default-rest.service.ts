@@ -13,6 +13,10 @@ import { RequestService } from './request/request.service';
 
 /**
  * Implementation default rest methods
+ * @todo: make all this methods as mixins. There is two problems:
+ * 1. Big problem when we wont to extend {@link BaseRestService}. Because we can not replace parent
+ *    class for this {@link DefaultRestService}
+ * 2. We use only all of the methods of the {@link DefaultRestService}, we can not disable any one
  */
 export abstract class DefaultRestService<M extends Model<M>> extends BaseRestService<M> {
 

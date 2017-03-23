@@ -1,6 +1,6 @@
 {
   "name": "ng-rest",
-  "version": "1.0.0-beta.1.5",
+  "version": "1.0.0-beta.1.6",
   "description": "Powerful and flexible angular REST client. Fully abstraction layer.",
   "keywords": [
     "angular2",

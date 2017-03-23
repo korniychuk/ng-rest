@@ -1,6 +1,6 @@
 import { RestRequestData } from './rest-request-data';
 import { BaseRequestFormatter } from './base-request-formatter';
-import { Pagination } from 'base-rest/pagination';
+import { Pagination } from './pagination';
 
 /**
  * This is common server-specific implementation of {@link BaseRequestFormatter}
