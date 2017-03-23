@@ -56,8 +56,8 @@ export class ResponseParser<M extends Model<M>, P> {
     };
   } // end json()
 
-  public validation(res: ResponseError, map: { (raw: AnyObject): AnyObject }): ValidationErrors {
-    const raw: RawValidation = res.data;
+  public validation(body: any, map: { (raw: AnyObject): AnyObject }): ValidationErrors {
+    const raw: RawValidation = body;
 
     const firstErrors = Object.keys(raw).reduce(
       (all, field) => Object.assign(all, { [field]: raw[ field ][ 0 ] }),

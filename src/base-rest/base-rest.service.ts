@@ -159,8 +159,8 @@ export abstract class BaseRestService<M extends Model<M>> {
    *     }
    *
    */
-  private parseValidation(res: ResponseError): ValidationErrors {
-    return this.parser.validation(res, this.map.bind(this));
+  private parseValidation(body: any): ValidationErrors {
+    return this.parser.validation(body, this.map.bind(this));
   }
 
   /**
