@@ -107,9 +107,25 @@ export abstract class BaseRestService<M extends Model<M>> {
    */
   protected parser: ResponseParser<M, Pagination>;
 
+  /**
+   * @param request
+   * @param init    call {@link BaseRestService.init()} method or not?
+   *                put false if you want do initialization in the child class
+   */
   public constructor(
     private request: RequestService,
+    init: boolean = true,
   ) {
+    if (init) {
+      this.init();
+    }
+  }
+
+  /**
+   * Initialize the class
+   * Use this method instead of the {@link BaseRestService.constructor()}
+   */
+  protected init(): void {
     this.parser = new this.responseParserClass(this);
   }
 
