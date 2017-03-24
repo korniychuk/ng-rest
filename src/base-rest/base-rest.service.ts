@@ -264,7 +264,7 @@ export abstract class BaseRestService<M extends Model<M>> {
     data: RestRequestData,
     path: string = '',
     useBaseUrl: boolean = true,
-  ): Observable<any> {
+  ): Observable<Response> {
     const formatter = new this.requestFormatterClass(data);
 
     return this.request.send(
