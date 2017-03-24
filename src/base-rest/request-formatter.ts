@@ -64,7 +64,7 @@ export class RequestFormatter<T extends RestRequestData> extends BaseRequestForm
    */
   protected prepareHeaders(data: T): void {
     if (data.token) {
-      this.headers.append('Authorization', `Bearer ${data.token}`);
+      this.headers.set('Authorization', `Bearer ${data.token}`);
     }
   } // end prepareHeaders()
 
