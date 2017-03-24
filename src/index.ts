@@ -26,6 +26,7 @@ export { RestRequestData } from './base-rest/rest-request-data';
 export { RestRequestSearchParams } from './base-rest/rest-request-search-params';
 export { status } from './base-rest/status';
 export { ValidationErrors } from './base-rest/validation-errors';
+export { RestSendHookService } from './base-rest/rest-send-hook.service';
 
 // Default REST
 export { DefaultRestService } from './default-rest.service';
