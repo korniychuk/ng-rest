@@ -117,7 +117,7 @@ export abstract class BaseRestService<M extends Model<M>> {
    */
   public constructor(
     private request: RequestService,
-    @Optional() private sendHook: RestSendHookService,
+    private sendHook?: RestSendHookService,
     init: boolean = true,
   ) {
     if (init) {
