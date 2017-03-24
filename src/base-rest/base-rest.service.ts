@@ -1,8 +1,9 @@
 /* tslint:disable:member-ordering */
 import { Response } from '@angular/http';
+import { Optional } from '@angular/core';
+
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { Observable } from 'rxjs/Observable';
-
 import { AnyObject, StringObject } from 'typed-object-interfaces';
 
 import { ResponseError } from '../request/response-error';
@@ -18,6 +19,7 @@ import { RequestFormatterConstructor } from './base-request-formatter';
 import { RestRequestData } from './rest-request-data';
 import { RequestFormatter } from './request-formatter';
 import { ResponseParser, ResponseParserConstructor } from './response-parser';
+import { RestSendHookService } from './rest-send-hook.service';
 
 /**
  * Base REST service for making api requests.
@@ -109,11 +111,13 @@ export abstract class BaseRestService<M extends Model<M>> {
 
   /**
    * @param request
-   * @param init    call {@link BaseRestService.init()} method or not?
-   *                put false if you want do initialization in the child class
+   * @param sendHook optional dependency
+   * @param init     call {@link BaseRestService.init()} method or not?
+   *                 put false if you want do initialization in the child class
    */
   public constructor(
     private request: RequestService,
+    @Optional() private sendHook: RestSendHookService,
     init: boolean = true,
   ) {
     if (init) {
@@ -258,19 +262,22 @@ export abstract class BaseRestService<M extends Model<M>> {
    *
    * @param data
    * @param path        relative path
-   * @param useBaseUrl  it need to concatenate baseUrl at begining
+   * @param useBaseUrl  it need to concatenate baseUrl at beginning
    */
   protected send(
     data: RestRequestData,
     path: string = '',
     useBaseUrl: boolean = true,
   ): Observable<Response> {
-    const formatter = new this.requestFormatterClass(data);
+    const extendedData: RestRequestData = this.sendHook ? this.sendHook.beforeSend(data) : data;
 
-    return this.request.send(
+    const formatter = new this.requestFormatterClass(extendedData);
+    const res$ = this.request.send(
       useBaseUrl ? `${this.baseUrl}${path}` : path,
       formatter.makeRequestData(),
     );
+
+    return this.sendHook ? this.sendHook.afterSend(res$) : res$;
   } // end send()
 
   /**

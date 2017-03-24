@@ -1,6 +1,6 @@
 import { RequestMethod } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 
+import { Observable } from 'rxjs/Observable';
 import { AnyObject } from 'typed-object-interfaces';
 
 import { BaseRestService } from './base-rest/base-rest.service';
@@ -9,7 +9,6 @@ import { Collection } from './base-rest/collection';
 import { RestRequestSearchParams } from './base-rest/rest-request-search-params';
 import { Model } from './base-rest/model';
 import { Pagination } from './base-rest/pagination';
-import { RequestService } from './request/request.service';
 
 /**
  * Implementation default rest methods
@@ -19,10 +18,6 @@ import { RequestService } from './request/request.service';
  * 2. We use only all of the methods of the {@link DefaultRestService}, we can not disable any one
  */
 export abstract class DefaultRestService<M extends Model<M>> extends BaseRestService<M> {
-
-  public constructor(request: RequestService) {
-    super(request);
-  }
 
   public view(id: string | number, options: RestRequestSearchParams = {}): Observable<Entity<M>> {
     return this.send(options, `/${id}`)

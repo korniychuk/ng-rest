@@ -7,7 +7,6 @@ import { CollectionConstructor } from './collection';
 import { Pagination } from './pagination';
 import { BaseRestService } from './base-rest.service';
 import { ValidationErrors } from './validation-errors';
-import { ResponseError } from '../request/response-error';
 import { Model } from './model';
 
 /**
