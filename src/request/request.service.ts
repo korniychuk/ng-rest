@@ -30,6 +30,9 @@ export class RequestService {
    */
   protected enableErrorLogging: boolean = true;
 
+  /** Unique for this service, request number */
+  protected requestCounter: number = 0;
+
   public constructor(
     private http: Http,
   ) {
@@ -49,12 +52,12 @@ export class RequestService {
       body:    options.body,
     };
 
-    this.logRequest(url, options);
+    this.logRequest(++this.requestCounter, url, options);
 
     return this.http
                .request(url, summaryOptions)
                .map(this.parseResponse.bind(this))
-               .do(this.logResponse.bind(this))
+               .do(this.logResponse.bind(this.requestCounter, this))
                .catch(this.handleError.bind(this));
   } // end send()
 
@@ -134,17 +137,17 @@ export class RequestService {
   /**
    * Log every request
    */
-  protected logRequest(url: string, options: RequestData): void {
+  protected logRequest(requestNumber: number, url: string, options: RequestData): void {
     if (this.enableRequestLogging) {
-      console.info('HTTP Request ::', url, options);
+      console.info('HTTP Request #%d::%s', requestNumber, url, options);
     }
   }
   /**
    * Log every successful response
    */
-  protected logResponse(res: Response): void {
+  protected logResponse(requestNumber: number, res: Response): void {
     if (this.enableResponseLogging) {
-      console.info('HTTP Response ::', res);
+      console.info('HTTP Response #%d::', requestNumber', res);
     }
   }
 
