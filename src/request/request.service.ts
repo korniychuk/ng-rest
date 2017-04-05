@@ -52,12 +52,14 @@ export class RequestService {
       body:    options.body,
     };
 
-    this.logRequest(++this.requestCounter, url, options);
+    this.requestCounter++;
+
+    this.logRequest(url, options);
 
     return this.http
                .request(url, summaryOptions)
                .map(this.parseResponse.bind(this))
-               .do(this.logResponse.bind(this.requestCounter, this))
+               .do(this.logResponse.bind(this))
                .catch(this.handleError.bind(this));
   } // end send()
 
@@ -131,23 +133,23 @@ export class RequestService {
    */
   protected logError(err: ResponseError): void {
     if (this.enableErrorLogging) {
-      console.error('HTTP Error [%d]: %s', err.status, err.msg());
+      console.error('HTTP Error #%d::[%d]: %s', this.requestCounter, err.status, err.msg());
     }
   }
   /**
    * Log every request
    */
-  protected logRequest(requestNumber: number, url: string, options: RequestData): void {
+  protected logRequest(url: string, options: RequestData): void {
     if (this.enableRequestLogging) {
-      console.info('HTTP Request #%d::%s', requestNumber, url, options);
+      console.info('HTTP Request #%d::%s', this.requestCounter, url, options);
     }
   }
   /**
    * Log every successful response
    */
-  protected logResponse(requestNumber: number, res: Response): void {
+  protected logResponse(res: Response): void {
     if (this.enableResponseLogging) {
-      console.info('HTTP Response #%d::', requestNumber, res);
+      console.info('HTTP Response #%d::', this.requestCounter, res);
     }
   }
 
