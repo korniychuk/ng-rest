@@ -147,7 +147,7 @@ export class RequestService {
    */
   protected logResponse(requestNumber: number, res: Response): void {
     if (this.enableResponseLogging) {
-      console.info('HTTP Response #%d::', requestNumber', res);
+      console.info('HTTP Response #%d::', requestNumber, res);
     }
   }
 
