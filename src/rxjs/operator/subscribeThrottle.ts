@@ -9,8 +9,8 @@ import { Subscription } from 'rxjs/Subscription';
  *
  * @see {@link subscribeDebounce} for understanding usage example. There is one deference: if you
  * send both `null` or normal data to `.filter$` stream and previous request is not finished nothing
- * will happen. If previous request came, and next message in `.filter$` stream is `null` nothing
- * will happen too.
+ * will happen. If previous request came, and next message in `.filter$` stream is `null` next http
+ * request will send.
  *
  * @param {function(value: T): Subscription} project The function to apply
  * to each `value` emitted by the source Observable.
@@ -32,7 +32,7 @@ export function subscribeThrottle<T>(
   const sub = source$
     .subscribe(
       (data: T) => {
-        if (data && projectSub.closed) {
+        if (!projectSub || projectSub.closed) {
           projectSub = project.call(thisArg || source$, data);
         }
       },
