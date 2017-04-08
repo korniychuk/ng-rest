@@ -1,14 +1,22 @@
 {
   "name": "ng-rest",
-  "version": "1.0.0-beta.4.2",
+  "version": "1.0.0-beta.4.3",
   "description": "Powerful and flexible angular REST client. Fully abstraction layer.",
   "keywords": [
+    "ng",
     "angular",
     "angular2",
     "angular4",
     "http",
     "api",
+    "api-client",
+    "api-wrapper",
+    "restful",
+    "restful-api",
     "rest",
+    "restapi",
+    "rest-api",
+    "rest-client",
     "request"
   ],
   "author": "Anton Korniychuk <dev@korniychuk.pro>",
@@ -17,15 +25,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {},
   "peerDependencies": {
     "@angular/common": "^4.0.1",
     "@angular/core": "^4.0.1",
     "@angular/http": "^4.0.1",
     "@angular/platform-browser": "^4.0.1",
-    "rxjs": "^5.3.0",
+    "rxjs": "^5.1.0",
     "typed-object-interfaces": "^1.0.0",
     "zone.js": "^0.8.5"
   },
