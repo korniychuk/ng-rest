@@ -215,7 +215,7 @@ export abstract class BaseRestService<M extends Model<M>> {
    *
    */
   protected get catchValidation(): {
-    (res: ResponseError | any): ErrorObservable<ResponseError | any>
+    (res: ResponseError | any): ErrorObservable
   } {
     return status(
       422,

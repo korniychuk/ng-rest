@@ -108,7 +108,7 @@ export class RequestService {
   /**
    * Handle and wrap an http error
    */
-  protected handleError(res: Response | any): ErrorObservable<ResponseError> {
+  protected handleError(res: Response | any): ErrorObservable {
     let errMsg: string;
 
     if (res instanceof Response) {

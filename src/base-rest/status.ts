@@ -22,9 +22,9 @@ import { ResponseError } from '../request/response-error';
 export function status(
   status: number,
   handler: { (res: ResponseError | any): any }
-): { (res: ResponseError | any): ErrorObservable<ResponseError | any> } {
+): { (res: ResponseError | any): ErrorObservable } {
 
-  return (res: ResponseError | any): ErrorObservable<ResponseError | any> => {
+  return (res: ResponseError | any): ErrorObservable => {
     if (res instanceof ResponseError && res.status === status) {
       return Observable.throw(
         handler(res)

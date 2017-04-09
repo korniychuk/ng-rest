@@ -1,6 +1,4 @@
-import { RequestMethod, Headers, URLSearchParams } from '@angular/http';
-import { DefaultObject } from 'typed-object-interfaces';
-import { Pagination } from './pagination';
+import { RequestMethod } from '@angular/http';
 import { RestRequestSearchParams } from './rest-request-search-params';
 
 type StringRequestMethod = 'get' | 'post' | 'put' | 'putch' | 'delete' | 'options' | 'head';

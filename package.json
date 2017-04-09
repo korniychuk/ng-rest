@@ -1,6 +1,6 @@
 {
   "name": "ng-rest",
-  "version": "1.0.0-beta.4.3",
+  "version": "1.0.0-beta.4.4",
   "description": "Powerful and flexible angular REST client. Fully abstraction layer.",
   "keywords": [
     "ng",
@@ -32,7 +32,8 @@
     "@angular/core": "^4.0.1",
     "@angular/http": "^4.0.1",
     "@angular/platform-browser": "^4.0.1",
-    "rxjs": "^5.1.0",
+    "rxjs": "^5.3.0",
+    "tslib": "^1.6.0",
     "typed-object-interfaces": "^1.0.0",
     "zone.js": "^0.8.5"
   },

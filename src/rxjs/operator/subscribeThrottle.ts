@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs/Subscription';
  *
  * @param {function(value: T): Subscription} project The function to apply
  * to each `value` emitted by the source Observable.
- * @param {any} [thisArg] An optional argument to define what `this` is in the
+ * @param [thisArg] An optional argument to define what `this` is in the
  * `project` function.
  *
  * @return {Subscription}

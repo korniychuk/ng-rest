@@ -4,7 +4,7 @@ import { Pagination } from './pagination';
 
 export interface RestRequestSearchParams {
   /**
-   * {@link DefaultObject} is recommended to use
+   * {@link DefaultObject } is recommended to use
    *
    * Examples:
    *
