@@ -1,6 +1,8 @@
 # Ng Rest
 Powerful and flexible angular REST client. Fully abstraction layer.
 
+**Estimated date of the `1.0.0` release:** 2017-04-30
+
 ### Todo
 
 - fix and add comments in the code
