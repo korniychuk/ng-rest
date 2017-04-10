@@ -1,13 +1,11 @@
 /* tslint:disable:member-ordering */
 import { Response } from '@angular/http';
-import { Optional } from '@angular/core';
 
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { Observable } from 'rxjs/Observable';
 import { AnyObject, StringObject } from 'typed-object-interfaces';
 
 import { ResponseError } from '../request/response-error';
-import { RequestService } from '../request/request.service';
 
 import { Collection } from './collection';
 import { Entity } from './entity';
@@ -15,11 +13,9 @@ import { Pagination } from './pagination';
 import { ValidationErrors } from './validation-errors';
 import { Model, ModelConstructor } from './model';
 import { status } from './status';
-import { RequestFormatterConstructor } from './base-request-formatter';
 import { RestRequestData } from './rest-request-data';
-import { RequestFormatter } from './request-formatter';
 import { ResponseParser, ResponseParserConstructor } from './response-parser';
-import { RestSendHookService } from './rest-send-hook.service';
+import { RestRequestService } from './rest-request.service';
 
 /**
  * Base REST service for making api requests.
@@ -96,10 +92,6 @@ export abstract class BaseRestService<M extends Model<M>> {
    */
   protected abstract modelClass: ModelConstructor<M>;
   /**
-   * Constructor of the class that convert request data from Rest format RequestService format
-   */
-  protected requestFormatterClass: RequestFormatterConstructor = RequestFormatter;
-  /**
    * Constructor of the class that convert response from raw format to Entity or Collection or
    * extracts ValidationErrors
    */
@@ -110,14 +102,12 @@ export abstract class BaseRestService<M extends Model<M>> {
   protected parser: ResponseParser<M, Pagination>;
 
   /**
-   * @param request
-   * @param sendHook optional dependency
+   * @param restRequest
    * @param init     call {@link BaseRestService.init()} method or not?
    *                 put false if you want do initialization in the child class
    */
   public constructor(
-    private request: RequestService,
-    private sendHook?: RestSendHookService,
+    private restRequest: RestRequestService,
     init: boolean = true,
   ) {
     if (init) {
@@ -258,7 +248,7 @@ export abstract class BaseRestService<M extends Model<M>> {
   }
 
   /**
-   * Make request with base url using {@link RequestService}
+   * Make full url and delegate request to {@link RestRequestService}
    *
    * @param data
    * @param path        relative path
@@ -269,15 +259,9 @@ export abstract class BaseRestService<M extends Model<M>> {
     path: string = '',
     useBaseUrl: boolean = true,
   ): Observable<Response> {
-    const extendedData: RestRequestData = this.sendHook ? this.sendHook.beforeSend(data) : data;
+    const url: string = useBaseUrl ? `${this.baseUrl}${path}` : path;
 
-    const formatter = new this.requestFormatterClass(extendedData);
-    const res$ = this.request.send(
-      useBaseUrl ? `${this.baseUrl}${path}` : path,
-      formatter.makeRequestData(),
-    );
-
-    return this.sendHook ? this.sendHook.afterSend(res$) : res$;
+    return this.restRequest.send(data, url);
   } // end send()
 
   /**
