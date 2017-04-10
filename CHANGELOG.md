@@ -1,5 +1,5 @@
 <a name="1.0.0-beta.5.0"></a>
-# [1.0.0-beta.5.0](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.4.4...v1.0.0-beta.5.0) (2017-04-10)
+# [1.0.0-beta.5.0](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.4.4...1.0.0-beta.5.0) (2017-04-10)
 
 ### Features
 * Repository tags fixed and this CHANGLOG file initialized.
