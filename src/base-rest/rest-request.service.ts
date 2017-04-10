@@ -34,6 +34,23 @@ export class RestRequestService {
   } // end constructor()
 
   /**
+   * Make request with base url using {@link RequestService}
+   *
+   * This is final method. No need to override it!
+   *
+   * @param data
+   * @param url  full resource url
+   */
+  public send(data: RestRequestData, url: string): Observable<Response> {
+    const extendedData: RestRequestData = this.beforeSend(data);
+
+    const formatter = new this.requestFormatterClass(extendedData);
+    const res$ = this.request.send(url, formatter.makeRequestData());
+
+    return this.afterSend(res$);
+  } // end send()
+
+  /**
    * Initialize the class
    * Use this method instead of the {@link RestRequestService.constructor()}
    */
@@ -55,22 +72,5 @@ export class RestRequestService {
   protected afterSend(stream$: Observable<Response>): Observable<Response> {
     return stream$;
   }
-
-  /**
-   * Make request with base url using {@link RequestService}
-   *
-   * This is final method. No need to override it!
-   *
-   * @param data
-   * @param url  full resource url
-   */
-  public send(data: RestRequestData, url: string): Observable<Response> {
-    const extendedData: RestRequestData = this.beforeSend(data);
-
-    const formatter = new this.requestFormatterClass(extendedData);
-    const res$ = this.request.send(url, formatter.makeRequestData());
-
-    return this.afterSend(res$);
-  } // end send()
 
 }

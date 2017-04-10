@@ -227,7 +227,7 @@ export abstract class BaseRestService<M extends Model<M>> {
    *
    */
   protected get mapEntity(): { (res: Response): Entity<M> } {
-    return this.parser.entity;
+    return this.parser.entity.bind(this.parser);
   }
 
   /**
@@ -244,7 +244,7 @@ export abstract class BaseRestService<M extends Model<M>> {
    *
    */
   protected get mapCollection(): { (res: Response): Collection<M, Pagination> } {
-    return this.parser.collection;
+    return this.parser.collection.bind(this.parser);
   }
 
   /**

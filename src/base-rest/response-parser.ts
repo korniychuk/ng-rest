@@ -24,35 +24,29 @@ export class ResponseParser<M extends Model<M>, P> {
   ) {
   }
 
-  public get collection() {
-    return (res: Response): Collection<M, P> => {
-      const data = this.extractCollectionData(res);
+  public collection(res: Response): Collection<M, P> {
+    const data = this.extractCollectionData(res);
 
-      const model = data.map((entity) => this.rest.makeModel(entity));
-      // 'any' used at here because we can not know in advance what the type will be returned by
-      // .extractPagination(). And generic type 'P' can not be specified at here
-      const pagination: any = this.extractPagination(res);
+    const model = data.map((entity) => this.rest.makeModel(entity));
+    // 'any' used at here because we can not know in advance what the type will be returned by
+    // .extractPagination(). And generic type 'P' can not be specified at here
+    const pagination: any = this.extractPagination(res);
 
-      return new this.collectionClass(model, pagination);
-    };
+    return new this.collectionClass(model, pagination);
   } // end collection()
 
-  public get entity() {
-    return (res: Response): Entity<M> => {
-      const data = this.extractEntityData(res);
+  public entity(res: Response): Entity<M> {
+    const data = this.extractEntityData(res);
 
-      const model = this.rest.makeModel(data);
+    const model = this.rest.makeModel(data);
 
-      return new this.entityClass(model);
-    };
+    return new this.entityClass(model);
   } // end entity()
 
-  public get json() {
-   return (res: Response): AnyObject|any[] => {
-      const data = this.extractData(res);
+  public json(res: Response): AnyObject|any[] {
+    const data = this.extractData(res);
 
-      return data;
-    };
+    return data;
   } // end json()
 
   public validation(body: any, map: { (raw: AnyObject): AnyObject }): ValidationErrors {
