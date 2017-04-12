@@ -1,10 +1,10 @@
-# [1.0.0-beta.5.3](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.5.1...1.0.0-beta.5.2) (2017-04-10)
+# [1.0.0-beta.5.3](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.5.1...1.0.0-beta.5.2) (2017-04-12)
 
 ### Documentation
 
 * Simple usage example in the README.md.
 
-# [1.0.0-beta.5.2](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.5.1...1.0.0-beta.5.2) (2017-04-10)
+# [1.0.0-beta.5.2](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.5.1...1.0.0-beta.5.2) (2017-04-11)
 
 ### Enhancements
 
