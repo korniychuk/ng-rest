@@ -7,6 +7,7 @@ import { RequestService } from '../request/request.service';
 import { RestRequestData } from './rest-request-data';
 import { RequestFormatterConstructor } from './base-request-formatter';
 import { RequestFormatter } from './request-formatter';
+import { BaseRestService } from './base-rest.service';
 
 /**
  * This abstraction level created to make possible require many dependencies and modify every
@@ -40,11 +41,12 @@ export class RestRequestService {
    *
    * @param data
    * @param url  full resource url
+   * @param rest
    */
-  public send(data: RestRequestData, url: string): Observable<Response> {
+  public send(data: RestRequestData, url: string, rest: BaseRestService<any>): Observable<Response> {
     const extendedData: RestRequestData = this.beforeSend(data);
 
-    const formatter = new this.requestFormatterClass(extendedData);
+    const formatter = new this.requestFormatterClass(extendedData, rest);
     const res$ = this.request.send(url, formatter.makeRequestData());
 
     return this.afterSend(res$);

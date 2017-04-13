@@ -3,6 +3,7 @@ import { DefaultObject } from 'typed-object-interfaces';
 
 import { RestRequestData } from './rest-request-data';
 import { RequestData } from '../request/request-data';
+import { BaseRestService } from 'base-rest/base-rest.service';
 
 /**
  * Usage example:
@@ -42,7 +43,7 @@ export abstract class BaseRequestFormatter<T extends RestRequestData> {
   protected params: DefaultObject;
   protected body: any;
 
-  public constructor(data: T, isCallPrepare: boolean = true) {
+  public constructor(data: T, protected rest: BaseRestService<any>, isCallPrepare: boolean = true) {
     this.method  = this._prepareMethod(data);
     this.headers = this._prepareHeaders(data);
     this.search  = this._prepareSearchParams(data);
@@ -132,5 +133,5 @@ export abstract class BaseRequestFormatter<T extends RestRequestData> {
 }
 
 export type RequestFormatterConstructor = {
-  new (data: RestRequestData): BaseRequestFormatter<RestRequestData>
+  new (data: RestRequestData, rest: BaseRestService<any>): BaseRequestFormatter<RestRequestData>
 };

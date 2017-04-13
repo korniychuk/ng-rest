@@ -161,11 +161,39 @@ export abstract class BaseRestService<M extends Model<M>> {
    * Apply fields map to a raw object
    * {@link BaseRestService.parseValidation}
    *
+   * @example
+   *
+   *     const user = {
+   *       id: 5,
+   *       name: 'Mike',
+   *       isAdmin: true
+   *     };
+   *
+   *     const rawUser = this.map(
+   *       user,
+   *       true,
+   *       {
+   *         user_name: 'name',
+   *         is_admin: 'isAdmin'
+   *       }
+   *     );
+   *     rawUser; // { id: 5, user_name: 'Mike', is_admin: true }
+   *
+   *     const user2 = this.map(
+   *       rawUser,
+   *       false,
+   *       {
+   *         user_name: 'name',
+   *         is_admin: 'isAdmin'
+   *       }
+   *     );
+   *     user2; // { id: 5, name: 'Mike', isAdmin: true }
+   *
    * @param raw
    * @param revert specify true for revert fieldsMap() and create raw entity from a model
    * @param map    use custom map for mapping {@link BaseRestService.map}
    */
-  protected map(raw: AnyObject, revert: boolean = false, map: StringObject = null): AnyObject {
+  public map(raw: AnyObject, revert: boolean = false, map: StringObject = null): AnyObject {
     if (!map) {
       map = this.fieldsMap();
     }
@@ -181,9 +209,9 @@ export abstract class BaseRestService<M extends Model<M>> {
       .keys(raw)
       .reduce<AnyObject>(
         (mapped, rawName) => {
-          const rawValue = raw[ rawName ];
+          const rawValue        = raw[ rawName ];
+          const targetFieldName = map[ rawName ] || rawName;
 
-          const targetFieldName       = map[ rawName ] || rawName;
           mapped[ targetFieldName ] = rawValue;
 
           return mapped;
@@ -261,7 +289,7 @@ export abstract class BaseRestService<M extends Model<M>> {
   ): Observable<Response> {
     const url: string = useBaseUrl ? `${this.baseUrl}${path}` : path;
 
-    return this.restRequest.send(data, url);
+    return this.restRequest.send(data, url, this);
   } // end send()
 
   /**

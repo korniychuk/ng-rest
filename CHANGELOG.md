@@ -1,4 +1,15 @@
-# [1.0.0-beta.5.3](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.5.1...1.0.0-beta.5.2) (2017-04-12)
+# [1.0.0-beta.5.4](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.5.3...1.0.0-beta.5.4) (2017-04-13)
+  
+### Enhancements
+
+* Better comment in the `BaseRestService.fieldsMap` method :)
+
+### BREAKING CHANGES
+
+* Not you should use mapped field names `fields` and `expand`.  
+  For example if in the `BaseRestService.fieldsMap()` specified that `user_surname` is `surname` than in the `fields` and `expand` you should use `surname`, not `user_surname`.
+  
+# [1.0.0-beta.5.3](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.5.2...1.0.0-beta.5.3) (2017-04-12)
 
 ### Documentation
 

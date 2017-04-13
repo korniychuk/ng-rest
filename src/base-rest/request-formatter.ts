@@ -1,6 +1,7 @@
 import { RestRequestData } from './rest-request-data';
 import { BaseRequestFormatter } from './base-request-formatter';
 import { Pagination } from './pagination';
+import { BaseRestService } from './base-rest.service';
 
 /**
  * This is common server-specific implementation of {@link BaseRequestFormatter}
@@ -40,8 +41,8 @@ export class RequestFormatter<T extends RestRequestData> extends BaseRequestForm
     to:      'to',
   };
 
-  public constructor(data: T, isCallPrepare: boolean = true) {
-    super(data, false);
+  public constructor(data: T, rest: BaseRestService<any>, isCallPrepare: boolean = true) {
+    super(data, rest, false);
 
     if (isCallPrepare) {
       this.prepare(data);
@@ -71,7 +72,12 @@ export class RequestFormatter<T extends RestRequestData> extends BaseRequestForm
   /**
    * 1. Parse and prepare default query params.
    * 2. Handling some custom query params like 'expand' of 'fields'
-   * Example:
+   *
+   * Note: use mapped field names. For example if in the {@link BaseRestService.fieldsMap()}
+   *  specified that `user_surname` is `surname` than in the `fields` and `expand` you should use
+   *  `surname`, not `user_surname`.
+   *
+   * @example
    *
    *    const search = { param1: 'val1' };
    *    const fields = ['field1', 'field2'];
@@ -83,12 +89,14 @@ export class RequestFormatter<T extends RestRequestData> extends BaseRequestForm
    *
    */
   protected prepareQueryParams(data: T): void {
+
     if ( this.expandQueryParam // should to use this feature?
       && data.expand
       && Array.isArray(data.expand)
       && !this.search.has(this.expandQueryParam) // is it not set another way
     ) {
-      this.search.set(this.expandQueryParam, data.expand.join());
+      const rawFields = this.mapModelFields(data.expand);
+      this.search.set(this.expandQueryParam, rawFields.join());
     }
 
     if ( this.fieldsQueryParam // should to use this feature?
@@ -96,7 +104,8 @@ export class RequestFormatter<T extends RestRequestData> extends BaseRequestForm
       && data.fields instanceof Array
       && !this.search.has(this.fieldsQueryParam) // is it not set another way
     ) {
-      this.search.append(this.fieldsQueryParam, data.fields.join());
+      const rawFields = this.mapModelFields(data.expand);
+      this.search.append(this.fieldsQueryParam, rawFields.join());
     }
   } // end prepareQueryParams()
 
@@ -118,5 +127,20 @@ export class RequestFormatter<T extends RestRequestData> extends BaseRequestForm
       }
     });
   } // end preparePagination()
+
+  /**
+   * Replace replace normal object field names with raw names that specified in
+   * {@link BaseRestService.fieldsMap()}
+   *
+   * Note: if you want to map field names in the object(not in array) just use
+   * {@link BaseRestService.makeRawEntity()}
+   */
+  protected mapModelFields(fields: string[]): string[] {
+    const simpleObject = fields.reduce((res, key) => Object.assign(res, {[key]: true}), {});
+
+    const mapped = this.rest.map(simpleObject, true);
+
+    return Object.keys(mapped);
+  } // end mapModelFields()
 
 }
