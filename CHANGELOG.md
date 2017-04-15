@@ -1,3 +1,14 @@
+# [1.0.0-beta.5.5](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.5.4...1.0.0-beta.5.5) (2017-04-15)
+  
+### Enhancements
+
+* added typing `(keyof M)[]` to `fields` and `expand` of the `RestRequestSearchParams` and `RestRequestData` interfaces, where `M` is the current model.  
+  starting of the moment IDE will show hints for items of the `fields` and `expand` params.
+
+### BREAKING CHANGES
+
+* `RestRequestSearchParams` and `RestRequestData` now has `<M extends Model<M>>` argument, where `M` is current model.
+  
 # [1.0.0-beta.5.4](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.5.3...1.0.0-beta.5.4) (2017-04-13)
   
 ### Enhancements

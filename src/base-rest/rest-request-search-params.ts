@@ -1,8 +1,9 @@
 import { Headers, URLSearchParams } from '@angular/http';
 import { DefaultObject } from 'typed-object-interfaces';
 import { Pagination } from './pagination';
+import { Model } from './model';
 
-export interface RestRequestSearchParams {
+export interface RestRequestSearchParams<M extends Model<M>> {
   /**
    * {@link DefaultObject } is recommended to use
    *
@@ -23,12 +24,12 @@ export interface RestRequestSearchParams {
    * Additional model fields
    * Recommended to use: array of strings
    */
-  expand?: string[];
+  expand?: (keyof M)[];
   /**
    * Get only specified model fields of all main fields
    * Recommended to use: array of strings
    */
-  fields?: string[];
+  fields?: (keyof M)[];
 
   /**
    * Parameters to replacing in URL

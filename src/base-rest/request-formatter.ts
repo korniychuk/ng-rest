@@ -13,7 +13,7 @@ import { BaseRestService } from './base-rest.service';
  *
  * For examples to usage see {@link BaseRequestFormatter}
  */
-export class RequestFormatter<T extends RestRequestData> extends BaseRequestFormatter<T> {
+export class RequestFormatter<T extends RestRequestData<any>> extends BaseRequestFormatter<T> {
   /**
    * Name of the query parameter for request additional response fields
    * Set null for disable this functionality

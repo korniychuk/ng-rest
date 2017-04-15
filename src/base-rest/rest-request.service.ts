@@ -43,8 +43,8 @@ export class RestRequestService {
    * @param url  full resource url
    * @param rest
    */
-  public send(data: RestRequestData, url: string, rest: BaseRestService<any>): Observable<Response> {
-    const extendedData: RestRequestData = this.beforeSend(data);
+  public send(data: RestRequestData<any>, url: string, rest: BaseRestService<any>): Observable<Response> {
+    const extendedData: RestRequestData<any> = this.beforeSend(data);
 
     const formatter = new this.requestFormatterClass(extendedData, rest);
     const res$ = this.request.send(url, formatter.makeRequestData());
@@ -63,7 +63,7 @@ export class RestRequestService {
    * Do some logic before every request. You can modify request data before every request.
    * For example you can inject SessionService to the service and add token to request data.
    */
-  protected beforeSend(data: RestRequestData): RestRequestData {
+  protected beforeSend(data: RestRequestData<any>): RestRequestData<any> {
     return data;
   }
 

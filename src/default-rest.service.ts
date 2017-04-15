@@ -19,19 +19,19 @@ import { Pagination } from './base-rest/pagination';
  */
 export abstract class DefaultRestService<M extends Model<M>> extends BaseRestService<M> {
 
-  public view(id: string | number, options: RestRequestSearchParams = {}): Observable<Entity<M>> {
+  public view(id: string | number, options: RestRequestSearchParams<M> = {}): Observable<Entity<M>> {
     return this.send(options, `/${id}`)
                .map(this.mapEntity)
       ;
   } // end get()
 
-  public list(options: RestRequestSearchParams = {}): Observable<Collection<M, Pagination>> {
+  public list(options: RestRequestSearchParams<M> = {}): Observable<Collection<M, Pagination>> {
     return this.send(options)
                .map(this.mapCollection)
       ;
   } // end list()
 
-  public create(model: M, options: RestRequestSearchParams = {}): Observable<Entity<M>> {
+  public create(model: M, options: RestRequestSearchParams<M> = {}): Observable<Entity<M>> {
     const summaryOptions = {
       method: RequestMethod.Post,
       body:   this.makeRawEntity(model),
@@ -44,7 +44,7 @@ export abstract class DefaultRestService<M extends Model<M>> extends BaseRestSer
       ;
   } // end create()
 
-  public update(model: M, options: RestRequestSearchParams = {},
+  public update(model: M, options: RestRequestSearchParams<M> = {},
                 pk: string = 'id',
   ): Observable<Entity<M>> {
     const summaryOptions = {
@@ -60,7 +60,7 @@ export abstract class DefaultRestService<M extends Model<M>> extends BaseRestSer
   } // end update()
 
   public delete(model: M,
-                options: RestRequestSearchParams = {},
+                options: RestRequestSearchParams<M> = {},
                 pk: string = 'id',
   ): Observable<AnyObject> {
     const summaryOptions = {

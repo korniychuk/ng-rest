@@ -283,7 +283,7 @@ export abstract class BaseRestService<M extends Model<M>> {
    * @param useBaseUrl  it need to concatenate baseUrl at beginning
    */
   protected send(
-    data: RestRequestData,
+    data: RestRequestData<M>,
     path: string = '',
     useBaseUrl: boolean = true,
   ): Observable<Response> {

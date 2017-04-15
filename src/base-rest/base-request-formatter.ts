@@ -35,7 +35,7 @@ import { BaseRestService } from 'base-rest/base-rest.service';
  *     }
  *
  */
-export abstract class BaseRequestFormatter<T extends RestRequestData> {
+export abstract class BaseRequestFormatter<T extends RestRequestData<any>> {
 
   protected method: RequestMethod;
   protected headers: Headers;
@@ -133,5 +133,5 @@ export abstract class BaseRequestFormatter<T extends RestRequestData> {
 }
 
 export type RequestFormatterConstructor = {
-  new (data: RestRequestData, rest: BaseRestService<any>): BaseRequestFormatter<RestRequestData>
+  new (data: RestRequestData<any>, rest: BaseRestService<any>): BaseRequestFormatter<RestRequestData<any>>
 };
