@@ -3,7 +3,7 @@ import { DefaultObject } from 'typed-object-interfaces';
 
 import { RestRequestData } from './rest-request-data';
 import { RequestData } from '../request/request-data';
-import { BaseRestService } from 'base-rest/base-rest.service';
+import { BaseRestService } from './base-rest.service';
 
 /**
  * Usage example:
@@ -133,5 +133,8 @@ export abstract class BaseRequestFormatter<T extends RestRequestData<any>> {
 }
 
 export type RequestFormatterConstructor = {
-  new (data: RestRequestData<any>, rest: BaseRestService<any>): BaseRequestFormatter<RestRequestData<any>>
+  new (
+    data: RestRequestData<any>,
+    rest: BaseRestService<any>,
+  ): BaseRequestFormatter<RestRequestData<any>>
 };

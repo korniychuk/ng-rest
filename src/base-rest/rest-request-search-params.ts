@@ -24,12 +24,12 @@ export interface RestRequestSearchParams<M extends Model<M>> {
    * Additional model fields
    * Recommended to use: array of strings
    */
-  expand?: (keyof M)[];
+  expand?: Array<keyof M>;
   /**
    * Get only specified model fields of all main fields
    * Recommended to use: array of strings
    */
-  fields?: (keyof M)[];
+  fields?: Array<keyof M>;
 
   /**
    * Parameters to replacing in URL

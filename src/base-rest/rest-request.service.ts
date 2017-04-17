@@ -43,7 +43,11 @@ export class RestRequestService {
    * @param url  full resource url
    * @param rest
    */
-  public send(data: RestRequestData<any>, url: string, rest: BaseRestService<any>): Observable<Response> {
+  public send(
+    data: RestRequestData<any>,
+    url: string,
+    rest: BaseRestService<any>,
+  ): Observable<Response> {
     const extendedData: RestRequestData<any> = this.beforeSend(data);
 
     const formatter = new this.requestFormatterClass(extendedData, rest);

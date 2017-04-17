@@ -1,3 +1,13 @@
+# [1.0.0-beta.5.6](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.5.5...1.0.0-beta.5.6) (2017-04-17)
+  
+### Enhancements
+
+* code style improvements
+
+### Bug Fixes
+
+* incorrect import `BaseRestService` in `BaseRequestFormatter` class.
+  
 # [1.0.0-beta.5.5](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.5.4...1.0.0-beta.5.5) (2017-04-15)
   
 ### Enhancements

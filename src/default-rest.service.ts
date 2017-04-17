@@ -19,7 +19,10 @@ import { Pagination } from './base-rest/pagination';
  */
 export abstract class DefaultRestService<M extends Model<M>> extends BaseRestService<M> {
 
-  public view(id: string | number, options: RestRequestSearchParams<M> = {}): Observable<Entity<M>> {
+  public view(
+    id: string | number,
+    options: RestRequestSearchParams<M> = {},
+  ): Observable<Entity<M>> {
     return this.send(options, `/${id}`)
                .map(this.mapEntity)
       ;
