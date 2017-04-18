@@ -254,7 +254,7 @@ export abstract class BaseRestService<M extends Model<M>> {
    *     }
    *
    */
-  protected get mapEntity(): { (res: Response): Entity<M> } {
+  public get mapEntity(): { (res: Response): Entity<M> } {
     return this.parser.entity.bind(this.parser);
   }
 
@@ -271,7 +271,7 @@ export abstract class BaseRestService<M extends Model<M>> {
    *     }
    *
    */
-  protected get mapCollection(): { (res: Response): Collection<M, Pagination> } {
+  public get mapCollection(): { (res: Response): Collection<M, Pagination> } {
     return this.parser.collection.bind(this.parser);
   }
 
@@ -283,7 +283,7 @@ export abstract class BaseRestService<M extends Model<M>> {
    * @param useBaseUrl  it need to concatenate baseUrl at beginning
    */
   protected send(
-    data: RestRequestData<M>,
+    data: RestRequestData<any>,
     path: string = '',
     useBaseUrl: boolean = true,
   ): Observable<Response> {

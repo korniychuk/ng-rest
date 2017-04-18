@@ -1,3 +1,10 @@
+# [1.0.0-beta.5.7](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.5.6...1.0.0-beta.5.7) (2017-04-18)
+  
+### Enhancements
+
+* access modifiers of `BaseRestService.mapCollection` and `BaseRestService.mapCollection` changed to `public`
+* Weakened typing of the first argument in `BaseRestService.send()` method. Now this is `RestRequestData<any>`
+
 # [1.0.0-beta.5.6](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.5.5...1.0.0-beta.5.6) (2017-04-17)
   
 ### Enhancements
