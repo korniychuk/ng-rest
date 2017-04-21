@@ -1,3 +1,9 @@
+# [1.0.0-beta.5.8](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.5.7...1.0.0-beta.5.8) (2017-04-21)
+  
+### Bug Fixes
+
+* fixed incorrect processing `fields` in `RequestFormatter`
+
 # [1.0.0-beta.5.7](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.5.6...1.0.0-beta.5.7) (2017-04-18)
   
 ### Enhancements

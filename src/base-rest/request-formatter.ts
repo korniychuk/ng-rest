@@ -104,7 +104,7 @@ export class RequestFormatter<T extends RestRequestData<any>> extends BaseReques
       && data.fields instanceof Array
       && !this.search.has(this.fieldsQueryParam) // is it not set another way
     ) {
-      const rawFields = this.mapModelFields(data.expand);
+      const rawFields = this.mapModelFields(data.fields);
       this.search.append(this.fieldsQueryParam, rawFields.join());
     }
   } // end prepareQueryParams()
