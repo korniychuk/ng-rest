@@ -3,7 +3,7 @@ import { Response } from '@angular/http';
 
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { Observable } from 'rxjs/Observable';
-import { AnyObject, StringObject } from 'typed-object-interfaces';
+import { AnyObject, StringObject, DefaultObject } from 'typed-object-interfaces';
 
 import { ResponseError } from '../request/response-error';
 
@@ -100,6 +100,12 @@ export abstract class BaseRestService<M extends Model<M>> {
    * Instance of the RequestParser. This is individual instance for every api service
    */
   protected parser: ResponseParser<M, Pagination>;
+
+  protected static revert(map: DefaultObject): StringObject {
+    return Object
+      .keys(map)
+      .reduce((reverted, key) => Object.assign(reverted, { [ map[ key ] /* value */ ]: key }), {});
+  }
 
   /**
    * @param restRequest
@@ -198,11 +204,7 @@ export abstract class BaseRestService<M extends Model<M>> {
       map = this.fieldsMap();
     }
     if (revert) {
-      map = Object.keys(map).reduce((res, key) => {
-        const value  = map[ key ];
-        res[ value ] = key;
-        return res;
-      }, {});
+      map = BaseRestService.revert(map);
     }
 
     return Object
@@ -219,6 +221,33 @@ export abstract class BaseRestService<M extends Model<M>> {
         {},
       );
   } // end map()
+
+  /**
+   * Apply model fields map to mapped with default {@link map()} object
+   */
+  public mapModelFields(source: M | AnyObject/*, isRawEntity: boolean = false*/): M | AnyObject {
+    let modelFieldsMap = this.modelFieldsMap();
+
+    const revertedFieldsMap = BaseRestService.revert(this.fieldsMap());
+    modelFieldsMap = Object
+      .keys(modelFieldsMap)
+      .reduce((res, field) =>
+        Object.assign(res, { [ revertedFieldsMap[ field ] ]: modelFieldsMap[ field ] }),
+        {}
+      );
+
+    const patched = Object
+      .keys(modelFieldsMap)
+      .filter((field) => source[ field ])
+      .reduce(
+        (res, field) =>
+          res[ field ] = /* submodel */ modelFieldsMap[ field ].makeModel(source[ field ]),
+
+        Object.assign({}, source) /* clone */
+      );
+
+    return patched;
+  } // end mapModelFields()
 
   /**
    * Returns function for quick add validation parsing layout
@@ -296,7 +325,9 @@ export abstract class BaseRestService<M extends Model<M>> {
    * Parse one entity from response and create instance one of Model classes
    */
   public makeModel(entity: AnyObject): M {
-    const mapped = this.map(entity);
+    const entityWithSubmodels = this.mapModelFields(entity);
+
+    const mapped = this.map(entityWithSubmodels);
 
     return new this.modelClass(mapped);
   }
@@ -307,7 +338,9 @@ export abstract class BaseRestService<M extends Model<M>> {
   public makeRawEntity(model: M): AnyObject {
     const raw = this.map(model, true);
 
-    return raw;
+    const rawWithSubmodels = this.mapModelFields(raw);
+
+    return rawWithSubmodels;
   }
 
   /**
@@ -329,5 +362,19 @@ export abstract class BaseRestService<M extends Model<M>> {
   protected fieldsMap(): StringObject {
     return {};
   };
+
+  /**
+   * Map with field names that should be processed in {@link makeModel()} and {@link makeRawEntity}
+   *
+   * Example:
+   *
+   *     {
+   *       user:          this.userApi,
+   *       userLocation: this.locationApi,
+   *     }
+   */
+  protected modelFieldsMap(): {[name: string]: BaseRestService<any>} {
+    return {};
+  } // end modelFieldsMap()
 
 }

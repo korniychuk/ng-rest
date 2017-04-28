@@ -1,3 +1,10 @@
+# [1.0.0-beta.5.9](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.5.8...1.0.0-beta.5.9) (2017-04-25)
+  
+### Enhancements
+
+* `BaseRestService.modelFieldsMap` method.
+* added static `BaseRestService.revert()` method.
+
 # [1.0.0-beta.5.8](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.5.7...1.0.0-beta.5.8) (2017-04-21)
   
 ### Bug Fixes
