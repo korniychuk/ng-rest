@@ -364,7 +364,8 @@ export abstract class BaseRestService<M extends Model<M>> {
   };
 
   /**
-   * Map with field names that should be processed in {@link makeModel()} and {@link makeRawEntity}
+   * Submodel-services map with field names that should be processed in {@link makeModel()} and
+   * {@link makeRawEntity} methods.
    *
    * Example:
    *

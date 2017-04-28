@@ -26,10 +26,13 @@ class AppModule {
 ```ts
 import { Model } from 'ng-rest';
 
+import { Location } from './location';
+
 class User extends Model<User> {
   public id: number;
   public name: string;
   public isAdmin: boolean;
+  public location: Location; // any submodel
   
   public constructor(data: any = {}) {
     super(data);
@@ -37,7 +40,8 @@ class User extends Model<User> {
     this.fill(data)
         .number('id')
         .string('name')
-        .boolean('isAdmin');
+        .boolean('isAdmin')
+        .model('location');
   }
 }
 ```
@@ -50,20 +54,23 @@ import { AnyObject, StringObject } from 'typed-object-interfaces';
 import { DefaultRestService, RestRequestService } from 'ng-rest';
 
 import { User } from 'app/models/user.model';
-import { config } from 'app/config';
+import { APP_CONFIG, AppConfig } from 'app/config';
 
 /**
  * User Api Service
  */
 @Injectable()
 export class UserApiService extends DefaultRestService<User> {
-  protected baseUrl    = `${config.apiBaseUrl}/users`;
+  protected baseUrl;;
   protected modelClass = User;
 
   public constructor(
     restRequest: RestRequestService,
+    @Inject(APP_CONFIG) private config: AppConfig,
+    private locationApi: locationApiService,
   ) {
     super(restRequest);
+    this.baseUrl = `${config.apiBaseUrl}/users`;
   }
 
   /**
@@ -71,8 +78,18 @@ export class UserApiService extends DefaultRestService<User> {
    */
   protected fieldsMap(): StringObject {
     return {
-      'is_admin':  'isAdmin',
-      'user_name': 'name',
+      'is_admin':      'isAdmin',
+      'user_name':     'name',
+      'user_location': 'location',
+    };
+  }
+  
+  /**
+   * Service map for parse submodels
+   */
+  protected modelFieldsMap(): StringObject {
+    return {
+      'location': this.locationApi,
     };
   }
 }
@@ -152,6 +169,7 @@ class MyComponent implements OnInit {
 
 ### Todo
 
+- make Model class as a separate package
 - fix and add comments in the code
 - write documentation
 - configure trevis

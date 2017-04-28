@@ -1,3 +1,9 @@
+# [1.0.0-beta.6.1](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.6.0...1.0.0-beta.6.1) (2017-04-25)
+  
+### Enhancements
+
+* Improve examples in README.md.
+
 # [1.0.0-beta.6.0](https://github.com/ancor-dev/ng-rest/compare/1.0.0-beta.5.8...1.0.0-beta.6.0) (2017-04-25)
   
 ### Enhancements
