@@ -225,7 +225,7 @@ export abstract class BaseRestService<M extends Model<M>> {
   /**
    * Apply model fields map to mapped with default {@link map()} object
    */
-  public mapModelFields(source: M | AnyObject/*, isRawEntity: boolean = false*/): M | AnyObject {
+  protected mapModelFields(source: M | AnyObject/*, isRawEntity: boolean = false*/): M | AnyObject {
     let modelFieldsMap = this.modelFieldsMap();
 
     const revertedFieldsMap = BaseRestService.revert(this.fieldsMap());
